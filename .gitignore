@@ -1,0 +1,11 @@
+build*/
+bin/
+
+*.swp
+.vscode/
+
+*.out
+
+Testing/
+images/
+report/

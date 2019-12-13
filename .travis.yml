@@ -1,0 +1,26 @@
+language: cpp
+matrix:
+  include:
+  - os: linux
+    dist: bionic
+    compiler: gcc
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - g++-7
+          - openmpi-bin
+          - libopenmpi-dev
+
+branches:
+  only:
+  - master
+
+script:
+- mpic++ -v
+- mkdir build
+- cd build
+- cmake ..
+- cmake --build .
+- ctest -C Debug -V
