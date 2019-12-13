@@ -19,7 +19,7 @@ option (BUILD_TESTS "tests" OFF)
 # ==========================================================================================================
 # Configuring external library downloads
 # ==========================================================================================================
-configure_file(CMakeLists.txt.in external-libs-download/CMakeLists.txt)
+configure_file(cmake/CMakeLists.txt.in external-libs-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
     WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external-libs-download" )
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
