@@ -48,9 +48,11 @@ add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
 # ==========================================================================================================
 
 set (SOURCES
+	src/display.cpp
 )
 
 set (HEADERS
+	include/display.hpp
 )
 
 set (MAIN
@@ -145,7 +147,7 @@ if (CLANG_FORMAT)
     add_custom_target(
         ClangFormat
         COMMAND ${CLANG_FORMAT}
-        -i
+		-i
         -style=file
         ${SOURCE_FILES_PATHS}
     )

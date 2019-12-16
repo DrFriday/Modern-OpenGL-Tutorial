@@ -1,5 +1,5 @@
 Language: Cpp
-ColumnLimit: 0
+ColumnLimit: 80
 BreakBeforeBraces : Allman
 BreakConstructorInitializers: AfterColon
 Cpp11BracedListStyle: true
