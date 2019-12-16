@@ -1,10 +1,13 @@
 #include "display.hpp"
 
+#include <GL/glew.h>
+#include <iostream>
+
 display::display(int width, int height, const char* title)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
-	// Size is in bits
+    // Size is in bits
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);   // 2^8 power of red values
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8); // 2^8 power of green values
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);  // 2^8 power of blue values
@@ -18,12 +21,43 @@ display::display(int width, int height, const char* title)
         SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                          width, height, SDL_WINDOW_OPENGL);
     m_glContext = SDL_GL_CreateContext(m_window);
+
+    auto status = glewInit();
+
+    if (status != GLEW_OK)
+    {
+        std::cerr << "Glew failed to initialize!" << std::endl;
+    }
+
+    m_isClosed = false;
 }
 
-display::~display() 
+display::~display()
 {
-	SDL_GL_DeleteContext(m_glContext);
+    SDL_GL_DeleteContext(m_glContext);
     SDL_DestroyWindow(m_window);
 
-	SDL_Quit();
+    SDL_Quit();
+}
+
+void display::update()
+{
+    SDL_GL_SwapWindow(m_window);
+
+    auto e = SDL_Event();
+    while (SDL_PollEvent(&e))
+    {
+        if (e.type == SDL_QUIT)
+        {
+            m_isClosed = true;
+        }
+    }
+}
+
+bool display::isClosed() { return m_isClosed; }
+
+void display::clear(float r, float g, float b, float a)
+{
+    glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
