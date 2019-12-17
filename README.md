@@ -15,3 +15,5 @@ This is a tutorial runthrough for OpenGL form this [video series](https://github
 ## Lessons learned
 
 Link both SDL2main and SDL2 to get things working.
+
+Put shaders after the display is initialized, or else you'll get an error.

@@ -10,9 +10,13 @@ int main(int argc, char** argv)
 
     auto display = Display(400, 400, "test");
 
+	Shader shader("./res/basicShader");
+
     while (!display.isClosed())
     {
 		display.clear(0, 0, 1, 1);
+        shader.bind();
+
         display.update();
     }
 

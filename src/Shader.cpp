@@ -4,11 +4,43 @@
 #include <iostream>
 #include <sstream>
 
-Shader::Shader(const std::string& fileName) : m_program(glCreateProgram()) {}
+Shader::Shader(const std::string& fileName)
+{
+    m_program = glCreateProgram();
 
-Shader::~Shader() { glDeleteProgram(m_program); }
+    // File extensions are custom.
+    m_shaders[0] = createShader(loadShader(fileName + ".vs"), GL_VERTEX_SHADER);
+    m_shaders[1] =
+        createShader(loadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);
 
-void Shader::bind() {}
+    for (const auto& shader : m_shaders)
+        glAttachShader(m_program, shader);
+
+    // Tells OpenGL what part of the data to read as what variable
+    glBindAttribLocation(m_program, 0, "position");
+
+    // Can fail
+    glLinkProgram(m_program);
+    checkShaderError(m_program, GL_LINK_STATUS, true,
+                     "Error: Program linking failed: ");
+
+    glValidateProgram(m_program);
+    checkShaderError(m_program, GL_VALIDATE_STATUS, true,
+                     "Error: Program is invalid: ");
+}
+
+Shader::~Shader()
+{
+	for (auto& shader : m_shaders)
+	{
+        glDetachShader(m_program, shader);
+        glDeleteShader(shader);
+	}
+
+	glDeleteProgram(m_program);
+}
+
+void Shader::bind() { glUseProgram(m_program); }
 
 std::string Shader::loadShader(const std::string& fileName)
 {
@@ -61,4 +93,29 @@ void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram,
 
         std::cerr << errorMessage << ": '" << error << "'" << std::endl;
     }
+}
+
+GLuint Shader::createShader(const std::string& text, GLenum shaderType)
+{
+    auto shader = glCreateShader(shaderType);
+
+	if (shader == 0)
+	{
+        std::cerr << "Error: Shader creation failed" << std::endl;
+	}
+
+	// Can have multiple strings per shader
+	const GLchar* shaderSourceStrings[1];
+    shaderSourceStrings[0] = text.c_str();
+
+    GLint shaderSourceStringLengths[1];
+    shaderSourceStringLengths[0] = static_cast<GLint>(text.length());
+
+	glShaderSource(shader, 1, shaderSourceStrings, shaderSourceStringLengths);
+    glCompileShader(shader);
+
+	checkShaderError(shader, GL_COMPILE_STATUS, false,
+                     "Error: Shader compilation failed: ");
+
+	return shader;
 }
