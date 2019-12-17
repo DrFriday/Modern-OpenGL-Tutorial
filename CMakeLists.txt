@@ -48,11 +48,13 @@ add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
 # ==========================================================================================================
 
 set (SOURCES
-	src/display.cpp
+	src/Display.cpp
+	src/Shader.cpp
 )
 
 set (HEADERS
-	include/display.hpp
+	include/Display.hpp
+	include/Shader.hpp
 )
 
 set (MAIN

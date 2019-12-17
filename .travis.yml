@@ -8,7 +8,11 @@ matrix:
     addons:
           apt:
             packages:
-              - libgl1-mesa-dev
+              - mesa-common-dev
+              - libglu1-mesa-dev
+              - freeglut3-dev
+              - libglfw3-dev
+              - libgles2-mesa-dev
   - os: windows
 
 branches:

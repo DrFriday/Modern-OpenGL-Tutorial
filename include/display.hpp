@@ -2,11 +2,11 @@
 
 #include "SDL.h"
 
-class display
+class Display
 {
   public:
-    display(int width, int height, const char* title);
-    ~display();
+    Display(int width, int height, const char* title);
+    ~Display();
 
     void update();
 

@@ -1,5 +1,5 @@
 #include "display.hpp"
-
+#include "Shader.hpp"
 #include <iostream>
 
 #include <GL/glew.h>
@@ -8,13 +8,12 @@ int main(int argc, char** argv)
 {
     std::cout << "Hello world!" << std::endl;
 
-    auto disp = display(100, 100, "test");
+    auto display = Display(400, 400, "test");
 
-    while (!disp.isClosed())
+    while (!display.isClosed())
     {
-
-		disp.clear(0, 0, 1, 1);
-		disp.update();
+		display.clear(0, 0, 1, 1);
+        display.update();
     }
 
     return 0;
