@@ -32,7 +32,7 @@ add_subdirectory("${CMAKE_BINARY_DIR}/glew-src/build/cmake"
                  "${CMAKE_BINARY_DIR}/glew-build")
 
 # ==========================================================================================================
-# OpenGL Mathematics (GLM) 
+# OpenGL Mathematics (GLM)
 # ==========================================================================================================
 add_subdirectory("${CMAKE_BINARY_DIR}/glm-src"
                  "${CMAKE_BINARY_DIR}/glm-build")
@@ -48,13 +48,15 @@ add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
 # ==========================================================================================================
 
 set (SOURCES
-	src/Display.cpp
-	src/Shader.cpp
+    src/Display.cpp
+    src/Shader.cpp
+    src/Mesh.cpp
 )
 
 set (HEADERS
-	include/Display.hpp
-	include/Shader.hpp
+    include/Display.hpp
+    include/Shader.hpp
+    include/Mesh.hpp
 )
 
 set (MAIN
@@ -75,14 +77,14 @@ add_executable(${EXEC_NAME} WIN32
 
 target_include_directories(${EXEC_NAME} PRIVATE
     include
-	${CMAKE_BINARY_DIR}/glew-src/include
+    ${CMAKE_BINARY_DIR}/glew-src/include
 )
 
 target_link_libraries(${EXEC_NAME}
-	SDL2main
-	SDL2
-	glm
-	glew
+    SDL2main
+    SDL2
+    glm
+    glew
 )
 
 set_property(TARGET ${EXEC_NAME} PROPERTY CXX_STANDARD 17)
@@ -98,7 +100,7 @@ endif ()
 if (BUILD_TESTS)
 # Prevent GoogleTest from overriding our compiler/linker options
 # when building with Visual Studio
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE) 
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 # Add googletest directly to our build. This adds
 # the following targets: gtest, gtest_main, gmock
@@ -116,17 +118,17 @@ endif ()
 
 set(TEST_EXEC_NAME UnitTestRunner)
 add_executable(${TEST_EXEC_NAME}
-	${SOURCES}
-	${HEADERS}
-	${UNIT_TEST_SOURCES}
+    ${SOURCES}
+    ${HEADERS}
+    ${UNIT_TEST_SOURCES}
 )
 
 target_include_directories(${TEST_EXEC_NAME} PRIVATE
-	include
+    include
 )
 
 target_link_libraries(${TEST_EXEC_NAME}
-	gtest_main
+    gtest_main
 )
 
 set_property(TARGET ${TEST_EXEC_NAME} PROPERTY CXX_STANDARD 17)
@@ -149,7 +151,7 @@ if (CLANG_FORMAT)
     add_custom_target(
         ClangFormat
         COMMAND ${CLANG_FORMAT}
-		-i
+        -i
         -style=file
         ${SOURCE_FILES_PATHS}
     )

@@ -1,21 +1,33 @@
 #include "Display.hpp"
+#include "Mesh.hpp"
 #include "Shader.hpp"
-#include <iostream>
 
 #include <GL/glew.h>
+#include <iostream>
 
 int main(int argc, char** argv)
 {
     std::cout << "Hello world!" << std::endl;
 
-    auto display = Display(400, 400, "test");
+    Display display(400, 400, "test");
 
-	Shader shader("./res/basicShader");
+    Shader shader("../res/basicShader");
+
+    Vertex temp[] = {Vertex(glm::vec3(-0.5, -0.5, 0)),
+                     Vertex(glm::vec3(0, 0.5, 0)),
+                     Vertex(glm::vec3(0.5, -0.5, 0))};
+
+
+
+    auto mesh = Mesh(temp, sizeof(temp)/sizeof(temp[0]));
 
     while (!display.isClosed())
     {
-		display.clear(0, 0, 1, 1);
+        display.clear(0, 1, 0, 1);
+
         shader.bind();
+
+        mesh.draw();
 
         display.update();
     }

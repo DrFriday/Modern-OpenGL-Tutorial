@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <exception>
 
 Shader::Shader(const std::string& fileName)
 {
@@ -49,8 +50,9 @@ std::string Shader::loadShader(const std::string& fileName)
 
     if (!file.is_open())
     {
-        std::cerr << "Unable to load shader: " << fileName << std::endl;
-        return "";
+        std::stringstream ss;
+        ss << "Unable to load shader: " << fileName << std::endl;
+        throw std::runtime_error(ss.str().c_str());
     }
 
     std::stringstream ss;
@@ -91,7 +93,10 @@ void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram,
             glGetShaderInfoLog(shader, sizeof(error), nullptr, error);
         }
 
-        std::cerr << errorMessage << ": '" << error << "'" << std::endl;
+		std::stringstream ss;
+        ss << errorMessage << ": '" << error << "'" << std::endl;
+
+		throw std::runtime_error(ss.str().c_str());
     }
 }
 
@@ -101,7 +106,7 @@ GLuint Shader::createShader(const std::string& text, GLenum shaderType)
 
 	if (shader == 0)
 	{
-        std::cerr << "Error: Shader creation failed" << std::endl;
+        throw std::runtime_error("Error: Shader creation failed");
 	}
 
 	// Can have multiple strings per shader
