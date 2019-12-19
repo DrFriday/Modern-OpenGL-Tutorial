@@ -1,7 +1,7 @@
 #include "Mesh.hpp"
 
 Mesh::Mesh(Triangle triangle) :
-    m_vertexArrayBuffers(), m_drawCount(NUM_BUFFERS)
+    m_vertexArrayBuffers(), m_drawCount(triangle.max_size())
 {
     initializeMesh(triangle.data(), triangle.max_size());
 }

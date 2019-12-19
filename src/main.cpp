@@ -13,13 +13,18 @@ int main(int argc, char** argv)
 
     Shader shader("../res/basicShader");
 
-    Vertex temp[] = {Vertex(glm::vec3(-0.5, -0.5, 0)),
-                     Vertex(glm::vec3(0, 0.5, 0)),
-                     Vertex(glm::vec3(0.5, -0.5, 0))};
+    // Vertex temp[] = {Vertex(glm::vec3(-0.5, -0.5, 0)),
+    //                  Vertex(glm::vec3(0, 0.5, 0)),
+    //                  Vertex(glm::vec3(0.5, -0.5, 0))};
 
+    Triangle arrTest = {Vertex(glm::vec3(-0.5, -0.5, 0)),
+                        Vertex(glm::vec3(0, 0.5, 0)),
+                        Vertex(glm::vec3(0.5, -0.5, 0))};
 
+    // auto mesh = Mesh(temp, sizeof(temp)/sizeof(temp[0])); // workds
+    // auto mesh = Mesh(temp, 3); // workds
 
-    auto mesh = Mesh(temp, sizeof(temp)/sizeof(temp[0]));
+    auto mesh = Mesh(arrTest);
 
     while (!display.isClosed())
     {
