@@ -44,23 +44,31 @@ add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
                  "${CMAKE_BINARY_DIR}/sdl2-build")
 
 # ==========================================================================================================
+# Header only libraries
+# ==========================================================================================================      
+set(HEADER_ONLY_LIBS
+    "dep/stb_image.h" # stb image loading
+)
+
+
+# ==========================================================================================================
 # Main Program
 # ==========================================================================================================
 
 set (SOURCES
-    src/Display.cpp
-    src/Shader.cpp
-    src/Mesh.cpp
+    "src/Display.cpp"
+    "src/Shader.cpp"
+    "src/Mesh.cpp"
 )
 
 set (HEADERS
-    include/Display.hpp
-    include/Shader.hpp
-    include/Mesh.hpp
+    "include/Display.hpp"
+    "include/Shader.hpp"
+    "include/Mesh.hpp"
 )
 
 set (MAIN
-    src/main.cpp
+    "src/main.cpp"
 )
 
 if (MSVC)
@@ -72,6 +80,7 @@ set(EXEC_NAME myopengl)
 add_executable(${EXEC_NAME} WIN32
     ${SOURCES}
     ${HEADERS}
+	${HEADER_ONLY_LIBS}
     ${MAIN}
 )
 
