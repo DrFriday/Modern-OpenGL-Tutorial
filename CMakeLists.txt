@@ -45,7 +45,7 @@ add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
 
 # ==========================================================================================================
 # Header only libraries
-# ==========================================================================================================      
+# ==========================================================================================================
 set(HEADER_ONLY_LIBS
     "dep/stb_image.h" # stb image loading
 )
@@ -59,12 +59,14 @@ set (SOURCES
     "src/Display.cpp"
     "src/Shader.cpp"
     "src/Mesh.cpp"
+	"src/Texture.cpp"
 )
 
 set (HEADERS
     "include/Display.hpp"
     "include/Shader.hpp"
     "include/Mesh.hpp"
+	"include/Texture.hpp"
 )
 
 set (MAIN
@@ -72,7 +74,7 @@ set (MAIN
 )
 
 if (MSVC)
-    assign_source_group(${SOURCES} ${HEADERS} ${MAIN})
+    assign_source_group(${SOURCES} ${HEADERS} ${MAIN} ${HEADER_ONLY_LIBS})
 endif ()
 
 set(EXEC_NAME myopengl)
@@ -80,13 +82,14 @@ set(EXEC_NAME myopengl)
 add_executable(${EXEC_NAME} WIN32
     ${SOURCES}
     ${HEADERS}
-	${HEADER_ONLY_LIBS}
+    ${HEADER_ONLY_LIBS}
     ${MAIN}
 )
 
 target_include_directories(${EXEC_NAME} PRIVATE
-    include
+    "include"
     ${CMAKE_BINARY_DIR}/glew-src/include
+	"dep"
 )
 
 target_link_libraries(${EXEC_NAME}

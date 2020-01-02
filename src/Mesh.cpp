@@ -34,7 +34,7 @@ void Mesh::initializeMesh(Vertex* data, unsigned int numVertices)
 
     // Put vertex data in our array, move to the GPU
     // GL_STATIC_DRAW - put the data somewhere it won't be changed
-    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(data[0]), data,
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vertex), data,
                  GL_STATIC_DRAW);
 
     // Going to be some attribute
