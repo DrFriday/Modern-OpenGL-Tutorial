@@ -1,6 +1,6 @@
 # Modern OpenGL Tutorial
 
-This is a tutorial runthrough for OpenGL form this [video series](https://github.com/glfw/glfw)
+This is a tutorial runthrough for OpenGL form this [video series](https://www.youtube.com/playlist?list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh)
 
 ## How to build
 

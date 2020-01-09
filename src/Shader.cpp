@@ -32,13 +32,13 @@ Shader::Shader(const std::string& fileName)
 
 Shader::~Shader()
 {
-	for (auto& shader : m_shaders)
-	{
+    for (auto& shader : m_shaders)
+    {
         glDetachShader(m_program, shader);
         glDeleteShader(shader);
-	}
+    }
 
-	glDeleteProgram(m_program);
+    glDeleteProgram(m_program);
 }
 
 void Shader::bind() { glUseProgram(m_program); }
@@ -93,10 +93,10 @@ void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram,
             glGetShaderInfoLog(shader, sizeof(error), nullptr, error);
         }
 
-		std::stringstream ss;
+        std::stringstream ss;
         ss << errorMessage << ": '" << error << "'" << std::endl;
 
-		throw std::runtime_error(ss.str().c_str());
+        throw std::runtime_error(ss.str().c_str());
     }
 }
 
@@ -104,23 +104,23 @@ GLuint Shader::createShader(const std::string& text, GLenum shaderType)
 {
     auto shader = glCreateShader(shaderType);
 
-	if (shader == 0)
-	{
+    if (shader == 0)
+    {
         throw std::runtime_error("Error: Shader creation failed");
-	}
+    }
 
-	// Can have multiple strings per shader
-	const GLchar* shaderSourceStrings[1];
+    // Can have multiple strings per shader
+    const GLchar* shaderSourceStrings[1];
     shaderSourceStrings[0] = text.c_str();
 
     GLint shaderSourceStringLengths[1];
     shaderSourceStringLengths[0] = static_cast<GLint>(text.length());
 
-	glShaderSource(shader, 1, shaderSourceStrings, shaderSourceStringLengths);
+    glShaderSource(shader, 1, shaderSourceStrings, shaderSourceStringLengths);
     glCompileShader(shader);
 
-	checkShaderError(shader, GL_COMPILE_STATUS, false,
+    checkShaderError(shader, GL_COMPILE_STATUS, false,
                      "Error: Shader compilation failed: ");
 
-	return shader;
+    return shader;
 }

@@ -8,8 +8,6 @@
 
 int main(int argc, char** argv)
 {
-    std::cout << "Hello world!" << std::endl;
-
     Display display(400, 400, "test");
 
     Shader shader("../res/basicShader");
@@ -28,6 +26,7 @@ int main(int argc, char** argv)
         display.clear(0, 1, 0, 1);
 
         shader.bind();
+        texture.bind(0);
 
         mesh.draw();
 
