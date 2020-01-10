@@ -6,15 +6,21 @@
 
 struct Vertex
 {
-    Vertex(const glm::vec3& pos) : pos(pos) {}
+  public:
+    Vertex(const glm::vec3& pos, const glm::vec2& texCoord) :
+		m_pos(pos),
+		m_textureCoord(texCoord) 
+	{}
 
-    glm::vec3 pos;
+	glm::vec3 pos() const { return m_pos; }
+    glm::vec2 texCoord() const { return m_textureCoord; }
+  private:
+    glm::vec3 m_pos;
+    glm::vec2 m_textureCoord;
 };
 
 constexpr auto TRI_NUM_VERTICES = 3;
 using Triangle = std::array<Vertex, TRI_NUM_VERTICES>;
-
-constexpr auto NUM_BUFFERS = 1;
 
 class Mesh
 {
@@ -38,8 +44,11 @@ class Mesh
 
     enum
     {
-        POSITION
+        POSITION,
+		TEXCOORD,
+		NUM_BUFFERS
     };
+
     //std::array<GLuint, 1> m_vertexArrayBuffers;
     GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 

@@ -20,16 +20,16 @@ Texture::Texture(const std::string& fileName)
 
 	// Wraps texture around, if 512x512, and looking for pixel 513,
 	// it will wrap back to zero.
-	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	// If the texture takes up more or fewer pixels than is specifies,
 	// this will fill in the gaps.
 	//
 	// GL_LINEAR - some filtering, extrapolates
     // GL_NEAREST - no filtering! (pixelated effect)
-	glTextureParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTextureParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
 	// Sends the texture to the GPU!

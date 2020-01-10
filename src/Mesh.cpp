@@ -1,5 +1,7 @@
 #include "Mesh.hpp"
 
+#include <vector>
+
 Mesh::Mesh(Triangle triangle) :
     m_vertexArrayBuffers(), m_drawCount(triangle.max_size())
 {
@@ -28,18 +30,33 @@ void Mesh::initializeMesh(Vertex* data, unsigned int numVertices)
     glGenVertexArrays(1, &m_vertexArrayObject);
     glBindVertexArray(m_vertexArrayObject);
 
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec2> textureCoords;
+
+    positions.reserve(numVertices);
+    textureCoords.reserve(numVertices);
+
+    for (decltype(numVertices) i = 0; i < numVertices; i++)
+    {
+        positions.push_back(data[i].pos());
+        textureCoords.push_back(data[i].texCoord());
+    }
+
     glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
-    // Interpret this buffer as an array
+
+    // Buffer for positions
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[POSITION]);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(positions[0]),
+                 positions.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(POSITION);
+    glVertexAttribPointer(POSITION, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glBindVertexArray(POSITION);
 
-    // Put vertex data in our array, move to the GPU
-    // GL_STATIC_DRAW - put the data somewhere it won't be changed
-    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(Vertex), data,
-                 GL_STATIC_DRAW);
-
-    // Going to be some attribute
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-    glBindVertexArray(0);
+    // Buffer for texture coordinates
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TEXCOORD]);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(textureCoords[0]),
+                 textureCoords.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(TEXCOORD);
+    glVertexAttribPointer(TEXCOORD, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glBindVertexArray(TEXCOORD);
 }
