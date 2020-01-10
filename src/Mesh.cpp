@@ -48,15 +48,17 @@ void Mesh::initializeMesh(Vertex* data, unsigned int numVertices)
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[POSITION]);
     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(positions[0]),
                  positions.data(), GL_STATIC_DRAW);
+    // Binding to attrib location 0, look at Shader.cpp
     glEnableVertexAttribArray(POSITION);
     glVertexAttribPointer(POSITION, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glBindVertexArray(POSITION);
 
     // Buffer for texture coordinates
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TEXCOORD]);
     glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(textureCoords[0]),
                  textureCoords.data(), GL_STATIC_DRAW);
+	// Binding to attrib location 1, look at Shader.cpp
     glEnableVertexAttribArray(TEXCOORD);
     glVertexAttribPointer(TEXCOORD, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glBindVertexArray(TEXCOORD);
+
+    glBindVertexArray(0);
 }

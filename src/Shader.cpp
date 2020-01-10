@@ -17,8 +17,13 @@ Shader::Shader(const std::string& fileName)
     for (const auto& shader : m_shaders)
         glAttachShader(m_program, shader);
 
+	// Telling each part what to expect, syncing them up!
+	//
     // Tells OpenGL what part of the data to read as what variable
+	//
+	// Sends to .vs
     glBindAttribLocation(m_program, 0, "position");
+    glBindAttribLocation(m_program, 1, "texCoord");
 
     // Can fail
     glLinkProgram(m_program);
