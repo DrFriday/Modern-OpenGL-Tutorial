@@ -1,12 +1,11 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 
 project(modern-opengl-tutorial CXX)
 
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include (CreateTreeVS)
 include (CTest)
-
-#set(CMAKE_DEBUG_POSTFIX "_d")
+include (FetchContent)
 
 set(targetDir ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${targetDir})
@@ -17,31 +16,32 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${targetDir})
 option (BUILD_TESTS "tests" OFF)
 
 # ==========================================================================================================
-# Configuring external library downloads
-# ==========================================================================================================
-configure_file(cmake/CMakeLists.txt.in external-libs-download/CMakeLists.txt)
-execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external-libs-download" )
-execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external-libs-download" )
-
-# ==========================================================================================================
 # glew lib
 # ==========================================================================================================
-add_subdirectory("${CMAKE_BINARY_DIR}/glew-src/build/cmake"
-                 "${CMAKE_BINARY_DIR}/glew-build")
+FetchContent_Declare(
+  glew
+  URL https://github.com/nigels-com/glew/archive/glew-2.1.0.zip
+)
+FetchContent_MakeAvailable(glew)
 
 # ==========================================================================================================
 # OpenGL Mathematics (GLM)
 # ==========================================================================================================
-add_subdirectory("${CMAKE_BINARY_DIR}/glm-src"
-                 "${CMAKE_BINARY_DIR}/glm-build")
+FetchContent_Declare(
+  glm
+  GIT_REPOSITORY    https://github.com/g-truc/glm
+  GIT_TAG           0.9.9.7
+)
+FetchContent_MakeAvailable(glm)
 
 # ==========================================================================================================
 # SDL 2
 # ==========================================================================================================
-add_subdirectory("${CMAKE_BINARY_DIR}/sdl2-src"
-                 "${CMAKE_BINARY_DIR}/sdl2-build")
+FetchContent_Declare(
+  sdl2
+  URL               https://www.libsdl.org/release/SDL2-2.0.10.zip
+)
+FetchContent_MakeAvailable(glm)
 
 # ==========================================================================================================
 # Header only libraries
@@ -110,15 +110,19 @@ endif ()
 # Google Test
 # ==========================================================================================================
 if (BUILD_TESTS)
-# Prevent GoogleTest from overriding our compiler/linker options
-# when building with Visual Studio
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
 # Add googletest directly to our build. This adds
 # the following targets: gtest, gtest_main, gmock
 # and gmock_main
-add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
-                 "${CMAKE_BINARY_DIR}/googletest-build")
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.10.0
+)
+FetchContent_MakeAvailable(googletest)
+
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 set(UNIT_TEST_SOURCES
     test/TestProject.cpp
