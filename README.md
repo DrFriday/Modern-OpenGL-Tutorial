@@ -1,6 +1,13 @@
 # Modern OpenGL Tutorial
 
-This is a tutorial runthrough for OpenGL form this [video series](https://www.youtube.com/playlist?list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh)
+This is a tutorial runthrough for OpenGL form this [video series](https://www.youtube.com/playlist?list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh).
+
+## Build Status
+
+| Windows & Linux |
+|-----------------|
+| [![Build Status](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial.svg?branch=master)](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial)|
+
 
 ## How to build
 

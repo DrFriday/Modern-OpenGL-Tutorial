@@ -41,7 +41,6 @@ class Mesh
 
     GLuint m_vertexArrayObject;
 
-
     enum
     {
         POSITION,
