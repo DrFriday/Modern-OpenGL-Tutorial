@@ -2,26 +2,28 @@ language: cpp
 
 matrix:
   include:
-  - os: linux
-    dist: bionic
-    compiler: gcc
-    addons:
-          apt:
-            packages:
-              - mesa-common-dev
-              - libglu1-mesa-dev
-              - freeglut3-dev
-              - libglfw3-dev
-              - libgles2-mesa-dev
-  - os: windows
+    - os: linux
+      dist: bionic
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - mesa-common-dev
+            - libglu1-mesa-dev
+            - freeglut3-dev
+            - libglfw3-dev
+            - libgles2-mesa-dev
+            - cmake
+    - os: windows
+      before_install: choco upgrade cmake
 
 branches:
   only:
-  - master
+    - master
 
 script:
-- mkdir build
-- cd build
-- cmake ..
-- cmake --build .
-- ctest -C Debug -V
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake --build .
+  - ctest -C Debug -V
