@@ -8,6 +8,11 @@ include (CTest)
 include (FetchContent)
 
 set(targetDir ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${targetDir})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${targetDir})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${targetDir})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${targetDir})
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${targetDir})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${targetDir})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${targetDir})
@@ -19,29 +24,40 @@ option (BUILD_TESTS "tests" OFF)
 # glew lib
 # ==========================================================================================================
 FetchContent_Declare(
-  glew
-  URL https://github.com/nigels-com/glew/archive/glew-2.1.0.zip
+    glew
+    URL               https://github.com/nigels-com/glew/releases/download/glew-2.1.0/glew-2.1.0.zip
 )
-FetchContent_MakeAvailable(glew)
+
+FetchContent_GetProperties(glew)
+if(NOT glew_POPULATED)
+    FetchContent_Populate(glew)
+    add_subdirectory(
+        ${glew_SOURCE_DIR}/build/cmake
+        ${glew_BINARY_DIR}
+    )
+endif()
 
 # ==========================================================================================================
 # OpenGL Mathematics (GLM)
 # ==========================================================================================================
 FetchContent_Declare(
-  glm
-  GIT_REPOSITORY    https://github.com/g-truc/glm
-  GIT_TAG           0.9.9.7
+    glm
+    GIT_REPOSITORY    https://github.com/g-truc/glm
+    GIT_TAG           0.9.9.7
 )
-FetchContent_MakeAvailable(glm)
 
 # ==========================================================================================================
 # SDL 2
 # ==========================================================================================================
 FetchContent_Declare(
-  sdl2
-  URL               https://www.libsdl.org/release/SDL2-2.0.10.zip
+    sdl2
+    URL               https://www.libsdl.org/release/SDL2-2.0.10.zip
 )
-FetchContent_MakeAvailable(glm)
+
+# ==========================================================================================================
+# Downloading Content
+# ==========================================================================================================
+FetchContent_MakeAvailable(glm sdl2)
 
 # ==========================================================================================================
 # Header only libraries
@@ -49,7 +65,6 @@ FetchContent_MakeAvailable(glm)
 set(HEADER_ONLY_LIBS
     "dep/stb_image.h" # stb image loading
 )
-
 
 # ==========================================================================================================
 # Main Program
@@ -59,14 +74,14 @@ set (SOURCES
     "src/Display.cpp"
     "src/Shader.cpp"
     "src/Mesh.cpp"
-	"src/Texture.cpp"
+    "src/Texture.cpp"
 )
 
 set (HEADERS
     "include/Display.hpp"
     "include/Shader.hpp"
     "include/Mesh.hpp"
-	"include/Texture.hpp"
+    "include/Texture.hpp"
 )
 
 set (MAIN
@@ -88,8 +103,8 @@ add_executable(${EXEC_NAME} WIN32
 
 target_include_directories(${EXEC_NAME} PRIVATE
     "include"
-    ${CMAKE_BINARY_DIR}/glew-src/include
-	"dep"
+    ${CMAKE_BINARY_DIR}/_deps/glew-src/include
+    "dep"
 )
 
 target_link_libraries(${EXEC_NAME}
@@ -177,3 +192,4 @@ if (CLANG_FORMAT)
 else()
     message("Couldn't find clang-format")
 endif()
+

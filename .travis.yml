@@ -14,6 +14,8 @@ matrix:
             - libglfw3-dev
             - libgles2-mesa-dev
             - cmake
+          sources:
+            - kalakris-cmake
     - os: windows
       before_install: choco upgrade cmake
 
