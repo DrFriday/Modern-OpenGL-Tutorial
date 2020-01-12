@@ -16,6 +16,7 @@ matrix:
             - cmake
           sources:
             - kalakris-cmake
+      before_install: sudo apt-get install cmake
     - os: windows
       before_install: choco upgrade cmake
 
