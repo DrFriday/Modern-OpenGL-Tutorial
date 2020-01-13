@@ -19,10 +19,11 @@ int main(int argc, char** argv)
     auto mesh = Mesh(arrTest);
 
     Texture texture("../res/bricks.jpg");
+    
 
     while (!display.isClosed())
     {
-        display.clear(0, 1, 0, 1);
+        display.clear(0, 1, 1, 1);
 
         shader.bind();
         texture.bind(0);
