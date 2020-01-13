@@ -16,10 +16,18 @@ matrix:
             - cmake
       install:
         # https://github.com/ldionne/hana/blob/master/.travis.yml
+        ############################################################################
+        # All the dependencies are installed in ${HOME}/deps/
+        ############################################################################
+        - DEPS_DIR="${HOME}/deps"
+        - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+        ############################################################################
+        # Install a recent CMake
+        ############################################################################
         - |
           CMAKE_URL="https://cmake.org/files/v3.16/cmake-3.16.0-Linux-x86_64.tar.gz"
-          mkdir cmake_program && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
-          export PATH=${DEPS_DIR}/cmake_program/bin:${PATH}
+          mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+          export PATH=${DEPS_DIR}/cmake/bin:${PATH}
     - os: windows
       install: choco upgrade cmake
 
