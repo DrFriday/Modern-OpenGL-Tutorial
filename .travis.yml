@@ -18,8 +18,8 @@ matrix:
         # https://github.com/ldionne/hana/blob/master/.travis.yml
         - |
           CMAKE_URL="https://cmake.org/files/v3.16/cmake-3.16.0-Linux-x86_64.tar.gz"
-          mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
-          export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+          mkdir cmake_program && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+          export PATH=${DEPS_DIR}/cmake_program/bin:${PATH}
     - os: windows
       install: choco upgrade cmake
 
