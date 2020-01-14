@@ -6,6 +6,11 @@
 #include <GL/glew.h>
 #include <iostream>
 
+
+
+
+
+
 int main(int argc, char** argv)
 {
     Display display(400, 400, "test");
@@ -19,7 +24,6 @@ int main(int argc, char** argv)
     auto mesh = Mesh(arrTest);
 
     Texture texture("../res/bricks.jpg");
-    
 
     while (!display.isClosed())
     {

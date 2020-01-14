@@ -1,8 +1,7 @@
 #pragma once
 
-#include <string>
-
 #include <GL/glew.h>
+#include <string>
 
 class Texture
 {
@@ -10,9 +9,9 @@ class Texture
     Texture(const std::string& fileName);
     ~Texture();
 
-	void bind(unsigned int unit);
-  private:
+    void bind(unsigned int unit);
 
-	// Handle to the texture
+  private:
+    // Handle to the texture
     GLuint m_texture;
 };
