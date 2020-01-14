@@ -1,17 +1,13 @@
 #include "Mesh.hpp"
 
-#include <vector>
-
 Mesh::Mesh(Triangle triangle) :
-    m_vertexArrayBuffers(),
-    m_drawCount(triangle.max_size())
+    m_vertexArrayBuffers(), m_drawCount(triangle.max_size())
 {
   initializeMesh(triangle.data(), triangle.max_size());
 }
 
 Mesh::Mesh(Vertex* vertices, unsigned int numVertices) :
-    m_vertexArrayBuffers(),
-    m_drawCount(numVertices)
+    m_vertexArrayBuffers(), m_drawCount(numVertices)
 {
   initializeMesh(vertices, numVertices);
 }
@@ -32,16 +28,18 @@ void Mesh::initializeMesh(Vertex* data, unsigned int numVertices)
   glGenVertexArrays(1, &m_vertexArrayObject);
   glBindVertexArray(m_vertexArrayObject);
 
-  std::vector<glm::vec3> positions;
-  std::vector<glm::vec2> textureCoords;
+  std::array<glm::vec3, TRI_NUM_VERTICES> positions;
+  std::array<glm::vec2, TRI_NUM_VERTICES> textureCoords;
 
-  positions.reserve(numVertices);
-  textureCoords.reserve(numVertices);
+  // positions.reserve(numVertices);
+  // textureCoords.reserve(numVertices);
 
   for (decltype(numVertices) i = 0; i < numVertices; i++)
   {
-    positions.push_back(data[i].pos());
-    textureCoords.push_back(data[i].texCoord());
+    // positions.push_back(data[i].pos());
+    // textureCoords.push_back(data[i].texCoord());
+    positions[i] = data[i].pos();
+    textureCoords[i] = data[i].texCoord();
   }
 
   glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
