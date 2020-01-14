@@ -6,36 +6,31 @@
 #include <GL/glew.h>
 #include <iostream>
 
-
-
-
-
-
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    Display display(400, 400, "test");
+  Display display(400, 400, "test");
 
-    Shader shader("../res/basicShader");
+  Shader shader("../res/basicShader");
 
-    Triangle arrTest = {Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0, 0)),
-                        Vertex(glm::vec3(0, 0.5, 0), glm::vec2(0.5, 1.0)),
-                        Vertex(glm::vec3(0.5, -0.5, 0), glm::vec2(1.0, 0))};
+  Triangle arrTest = {Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0, 0)),
+                      Vertex(glm::vec3(0, 0.5, 0), glm::vec2(0.5, 1.0)),
+                      Vertex(glm::vec3(0.5, -0.5, 0), glm::vec2(1.0, 0))};
 
-    auto mesh = Mesh(arrTest);
+  auto mesh = Mesh(arrTest);
 
-    Texture texture("../res/bricks.jpg");
+  Texture texture("../res/bricks.jpg");
 
-    while (!display.isClosed())
-    {
-        display.clear(0, 1, 1, 1);
+  while (!display.isClosed())
+  {
+    display.clear(0, 1, 1, 1);
 
-        shader.bind();
-        texture.bind(0);
+    shader.bind();
+    texture.bind(0);
 
-        mesh.draw();
+    mesh.draw();
 
-        display.update();
-    }
+    display.update();
+  }
 
-    return 0;
+  return 0;
 }

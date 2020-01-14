@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+
 #include <string>
 
 class Texture
@@ -11,7 +12,7 @@ class Texture
 
     void bind(unsigned int unit);
 
-  private:
+   private:
     // Handle to the texture
     GLuint m_texture;
 };
