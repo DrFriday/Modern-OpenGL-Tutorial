@@ -75,6 +75,7 @@ set (SOURCES
     "src/Shader.cpp"
     "src/Mesh.cpp"
     "src/Texture.cpp"
+    "src/Transform.cpp"
 )
 
 set (HEADERS
@@ -82,6 +83,7 @@ set (HEADERS
     "include/Shader.hpp"
     "include/Mesh.hpp"
     "include/Texture.hpp"
+    "include/Transform.hpp"
 )
 
 set (MAIN
