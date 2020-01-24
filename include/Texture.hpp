@@ -6,13 +6,13 @@
 
 class Texture
 {
-  public:
-    Texture(const std::string& fileName);
-    ~Texture();
+ public:
+  Texture(const std::string& fileName);
+  ~Texture();
 
-    void bind(unsigned int unit);
+  void bind(unsigned int unit);
 
-   private:
-    // Handle to the texture
-    GLuint m_texture;
+ private:
+  // Handle to the texture
+  GLuint m_texture;
 };
