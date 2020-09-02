@@ -116,6 +116,8 @@ target_link_libraries(${EXEC_NAME}
     glew
 )
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(TARGET ${EXEC_NAME} PROPERTY USE_FOLDERS ON)
 set_property(TARGET ${EXEC_NAME} PROPERTY CXX_STANDARD 17)
 
 if (MSVC)

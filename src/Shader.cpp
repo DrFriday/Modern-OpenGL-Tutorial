@@ -5,7 +5,6 @@
 #include <iostream>
 #include <sstream>
 
-
 Shader::Shader(const std::string& fileName)
 {
   m_program = glCreateProgram();
@@ -20,7 +19,7 @@ Shader::Shader(const std::string& fileName)
   //
   // Tells OpenGL what part of the data to read as what variable
   //
-  // Sends to .vs
+  // Sends to shader
   glBindAttribLocation(m_program, 0, "position");
   glBindAttribLocation(m_program, 1, "texCoord");
 
@@ -32,6 +31,8 @@ Shader::Shader(const std::string& fileName)
   glValidateProgram(m_program);
   checkShaderError(m_program, GL_VALIDATE_STATUS, true,
                    "Error: Program is invalid: ");
+
+  m_uniforms[U_TRANSFORM] = glGetUniformLocation(m_program, "u_transform");
 }
 
 Shader::~Shader()

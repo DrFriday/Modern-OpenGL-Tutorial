@@ -4,9 +4,6 @@
 #include <array>
 #include <string>
 
-
-constexpr int NUM_SHADERS = 2;
-
 class Shader
 {
  public:
@@ -18,7 +15,16 @@ class Shader
  private:
   // Handle to program
   GLuint m_program;
+  static const unsigned int NUM_SHADERS = 2;
   std::array<GLuint, NUM_SHADERS> m_shaders;
+
+  enum
+  {
+    U_TRANSFORM,
+    NUM_UNIFORMS
+  };
+
+  std::array<GLuint, NUM_UNIFORMS> m_uniforms;
 
   std::string loadShader(const std::string& fileName);
   void checkShaderError(GLuint shader, GLuint flag, bool isProgram,
