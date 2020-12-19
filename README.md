@@ -1,6 +1,6 @@
 # Modern OpenGL Tutorial
 
-This is a tutorial runthrough for OpenGL form this [video series](https://www.youtube.com/playlist?list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh).
+This is a tutorial run through for OpenGL form this [video series](https://www.youtube.com/playlist?list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh).
 
 ## Build Status
 
@@ -24,3 +24,14 @@ This is a tutorial runthrough for OpenGL form this [video series](https://www.yo
 Link both SDL2main and SDL2 to get things working.
 
 Put shaders after the display is initialized, or else you'll get an error.
+
+## TODO
+
+Videos:
+- [x] 1
+- [x] 2
+- [x] 3
+- [x] 4
+- [ ] 5
+- [ ] 6
+- [ ] 7
