@@ -76,14 +76,14 @@ set (SOURCES
     "src/Shader.cpp"
     "src/Mesh.cpp"
     "src/Texture.cpp"
-)
+        )
 
 set (HEADERS
     "include/Display.hpp"
     "include/Shader.hpp"
     "include/Mesh.hpp"
     "include/Texture.hpp"
-)
+        include/Transform.hpp)
 
 if (MSVC)
     assign_source_group(${SOURCES} ${HEADERS} ${HEADER_ONLY_LIBS})
