@@ -28,27 +28,27 @@ class Transform
         return posMatrix * rotMatrix * scaleMatrix;
     }
 
-    void setPosition(glm::vec3& newValue) {
+    void setPosition(const glm::vec3& newValue) {
         m_position = newValue;
     }
 
-    void setRotation(glm::vec3& newValue) {
+    void setRotation(const glm::vec3& newValue) {
         m_rotation = newValue;
     }
 
-    void setScale(glm::vec3& newValue) {
+    void setScale(const glm::vec3& newValue) {
         m_scale = newValue;
     }
 
-    glm::vec3 getPosition() {
+    glm::vec3& getPosition() {
         return m_position;
     }
 
-    glm::vec3 getRotation() {
+    glm::vec3& getRotation() {
         return m_rotation;
     }
 
-    glm::vec3 getScale() {
+    glm::vec3& getScale() {
         return m_scale;
     }
 

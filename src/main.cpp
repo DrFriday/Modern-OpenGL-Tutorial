@@ -6,6 +6,8 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 int main(int argc, char** argv)
 {
@@ -23,9 +25,15 @@ int main(int argc, char** argv)
 
     Transform transform;
 
+    float counter {};
+
     while (!display.isClosed())
     {
         display.clear(0, 1, 0, 1);
+
+        transform.getPosition().x = sinf(counter);
+        transform.getRotation().x = counter;
+        transform.getScale().x = sinf(counter) * 2;
 
         shader.bind();
         shader.update(transform);
@@ -35,6 +43,10 @@ int main(int argc, char** argv)
         mesh.draw();
 
         display.update();
+
+        counter += 0.01f;
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000/24));
     }
 
     return 0;
