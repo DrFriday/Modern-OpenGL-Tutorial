@@ -6,7 +6,7 @@ This is a tutorial run through for OpenGL form this [video series](https://www.y
 
 | Windows & Linux |
 |-----------------|
-| [![Build Status](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial.svg?branch=master)](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial)|
+| [![Build Status](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial.svg?branch=main)](https://travis-ci.com/DrFriday/Modern-OpenGL-Tutorial)|
 
 
 ## How to build
@@ -32,6 +32,6 @@ Videos:
 - [x] 2
 - [x] 3
 - [x] 4
-- [ ] 5 (Pick up at 16:11)
-- [ ] 6
+- [x] 5
+- [x] 6
 - [ ] 7
