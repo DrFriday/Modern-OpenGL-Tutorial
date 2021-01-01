@@ -2,6 +2,7 @@
 #include "Mesh.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
+#include "Transform.hpp"
 
 #include <GL/glew.h>
 #include <iostream>
@@ -20,11 +21,15 @@ int main(int argc, char** argv)
 
     Texture texture("../res/bricks.jpg");
 
+    Transform transform;
+
     while (!display.isClosed())
     {
         display.clear(0, 1, 0, 1);
 
         shader.bind();
+        shader.update(transform);
+
         texture.bind(0);
 
         mesh.draw();

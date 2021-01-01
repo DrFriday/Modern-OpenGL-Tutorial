@@ -10,9 +10,9 @@ Shader::Shader(const std::string& fileName)
     m_program = glCreateProgram();
 
     // File extensions are custom.
-    m_shaders[0] = createShader(loadShader(fileName + ".vs"), GL_VERTEX_SHADER);
+    m_shaders[0] = createShader(loadShader(fileName + ".vert"), GL_VERTEX_SHADER);
     m_shaders[1] =
-        createShader(loadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);
+        createShader(loadShader(fileName + ".frag"), GL_FRAGMENT_SHADER);
 
     for (const auto& shader : m_shaders)
         glAttachShader(m_program, shader);
@@ -21,7 +21,7 @@ Shader::Shader(const std::string& fileName)
 	//
     // Tells OpenGL what part of the data to read as what variable
 	//
-	// Sends to .vs
+	// Sends to .vs/.vert
     glBindAttribLocation(m_program, 0, "position");
     glBindAttribLocation(m_program, 1, "texCoord");
 
@@ -33,6 +33,8 @@ Shader::Shader(const std::string& fileName)
     glValidateProgram(m_program);
     checkShaderError(m_program, GL_VALIDATE_STATUS, true,
                      "Error: Program is invalid: ");
+
+    m_uniforms[TRANSFORM_U] = glGetUniformLocation(m_program, "transform");
 }
 
 Shader::~Shader()
@@ -46,7 +48,15 @@ Shader::~Shader()
     glDeleteProgram(m_program);
 }
 
-void Shader::bind() { glUseProgram(m_program); }
+void Shader::bind() const { glUseProgram(m_program); }
+
+void Shader::update(const Transform& transform) {
+
+    glm::mat4 model = transform.getModel();
+
+    glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
+}
+
 
 std::string Shader::loadShader(const std::string& fileName)
 {

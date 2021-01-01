@@ -7,7 +7,7 @@
 class Transform
 {
   public:
-    Transform(const glm::vec3& position = glm::vec3(),
+    explicit Transform(const glm::vec3& position = glm::vec3(),
               const glm::vec3& rotation = glm::vec3(),
               const glm::vec3& scale = glm::vec3(1.0f, 1.0f, 1.0f)) :
         m_position(position),
@@ -17,8 +17,15 @@ class Transform
 
     glm::mat4 getModel() const {
         glm::mat4 posMatrix = glm::translate(m_position);
+        glm::mat4 rotXMatrix = glm::rotate(m_rotation.x, glm::vec3(1, 0, 0));
+        glm::mat4 rotYMatrix = glm::rotate(m_rotation.y, glm::vec3(0, 1, 0));
+        glm::mat4 rotZMatrix = glm::rotate(m_rotation.z, glm::vec3(0, 0, 1));
+        glm::mat4 scaleMatrix = glm::scale(m_scale);
 
-        glm::mat4 scaleMatrix = glm::translate(m_scale);
+        auto rotMatrix = rotZMatrix * rotYMatrix * rotXMatrix;
+
+        // Can get different effects depending on the order you multiply
+        return posMatrix * rotMatrix * scaleMatrix;
     }
 
     void setPosition(glm::vec3& newValue) {
