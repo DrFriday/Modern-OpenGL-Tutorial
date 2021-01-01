@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <iostream>
 
-Display::Display(int width, int height, const char* title)
+Display::Display(int width, int height, const char* title) :
+    m_width(width), m_height(height)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -19,7 +20,7 @@ Display::Display(int width, int height, const char* title)
 
     m_window =
         SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                         width, height, SDL_WINDOW_OPENGL);
+                         m_width, m_height, SDL_WINDOW_OPENGL);
     m_glContext = SDL_GL_CreateContext(m_window);
 
     auto status = glewInit();
@@ -54,10 +55,15 @@ void Display::update()
     }
 }
 
-bool Display::isClosed() { return m_isClosed; }
+bool Display::isClosed() const { return m_isClosed; }
 
-void Display::clear(float r, float g, float b, float a)
+void Display::clear(float r, float g, float b, float a) const
 {
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+float Display::getAspectRatio() const
+{
+    return (float)m_width / (float)m_height;
 }

@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <string>
 #include <array>
-#include "./Transform.hpp"
+#include "Transform.hpp"
+#include "Camera.hpp"
 
 constexpr int NUM_SHADERS = 2;
 
@@ -14,7 +15,7 @@ class Shader
     ~Shader();
 
     void bind() const;
-    void update(const Transform& transform);
+    void update(const Transform& transform, const Camera& camera);
 
   private:
 

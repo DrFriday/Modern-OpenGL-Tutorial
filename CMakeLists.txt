@@ -64,7 +64,7 @@ FetchContent_MakeAvailable(glm sdl2)
 # =============================================================================
 set(HEADER_ONLY_LIBS
     "dep/stb_image.h" # stb image loading
-)
+    )
 
 # =============================================================================
 # Main Program
@@ -83,7 +83,8 @@ set (HEADERS
     "include/Shader.hpp"
     "include/Mesh.hpp"
     "include/Texture.hpp"
-        include/Transform.hpp)
+    include/Transform.hpp
+    include/Camera.hpp)
 
 if (MSVC)
     assign_source_group(${SOURCES} ${HEADERS} ${HEADER_ONLY_LIBS})

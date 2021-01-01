@@ -3,6 +3,7 @@
 #include "Shader.hpp"
 #include "Texture.hpp"
 #include "Transform.hpp"
+#include "Camera.hpp"
 
 #include <GL/glew.h>
 #include <iostream>
@@ -25,6 +26,8 @@ int main(int argc, char** argv)
 
     Transform transform;
 
+    Camera camera(glm::vec3(0, 0, -3), 70, display.getAspectRatio(), 0.01f, 1000.0f);
+
     float counter {};
 
     while (!display.isClosed())
@@ -32,11 +35,14 @@ int main(int argc, char** argv)
         display.clear(0, 1, 0, 1);
 
         transform.getPosition().x = sinf(counter);
-        transform.getRotation().x = counter;
-        transform.getScale().x = sinf(counter) * 2;
+        transform.getPosition().z = cosf(counter);
+        transform.getRotation().x = sinf(counter);
+        transform.getRotation().y = sinf(counter);
+        transform.getRotation().x = sinf(counter);
+//        transform.getScale().x = sinf(counter) * 2;
 
         shader.bind();
-        shader.update(transform);
+        shader.update(transform, camera);
 
         texture.bind(0);
 
@@ -46,7 +52,7 @@ int main(int argc, char** argv)
 
         counter += 0.01f;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/24));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000/30));
     }
 
     return 0;
