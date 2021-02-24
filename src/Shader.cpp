@@ -1,38 +1,35 @@
 #include "Shader.hpp"
 
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <exception>
 
-Shader::Shader(const std::string& fileName)
+Shader::Shader(const std::string& fileName) : m_shaders(), m_uniforms()
 {
     m_program = glCreateProgram();
 
     // File extensions are custom.
     m_shaders[0] = createShader(loadShader(fileName + ".vert"), GL_VERTEX_SHADER);
-    m_shaders[1] =
-        createShader(loadShader(fileName + ".frag"), GL_FRAGMENT_SHADER);
+    m_shaders[1] = createShader(loadShader(fileName + ".frag"), GL_FRAGMENT_SHADER);
 
     for (const auto& shader : m_shaders)
         glAttachShader(m_program, shader);
 
-	// Telling each part what to expect, syncing them up!
-	//
+    // Telling each part what to expect, syncing them up!
+    //
     // Tells OpenGL what part of the data to read as what variable
-	//
-	// Sends to .vs/.vert
+    //
+    // Sends to .vs/.vert
     glBindAttribLocation(m_program, 0, "position");
     glBindAttribLocation(m_program, 1, "texCoord");
 
     // Can fail
     glLinkProgram(m_program);
-    checkShaderError(m_program, GL_LINK_STATUS, true,
-                     "Error: Program linking failed: ");
+    checkShaderError(m_program, GL_LINK_STATUS, true, "Error: Program linking failed: ");
 
     glValidateProgram(m_program);
-    checkShaderError(m_program, GL_VALIDATE_STATUS, true,
-                     "Error: Program is invalid: ");
+    checkShaderError(m_program, GL_VALIDATE_STATUS, true, "Error: Program is invalid: ");
 
     m_uniforms[TRANSFORM_U] = glGetUniformLocation(m_program, "transform");
 }
@@ -50,13 +47,13 @@ Shader::~Shader()
 
 void Shader::bind() const { glUseProgram(m_program); }
 
-void Shader::update(const Transform& transform, const Camera& camera) {
+void Shader::update(const Transform& transform, const Camera& camera)
+{
 
     glm::mat4 model = camera.getViewProjection() * transform.getModel();
 
     glUniformMatrix4fv(m_uniforms[TRANSFORM_U], 1, GL_FALSE, &model[0][0]);
 }
-
 
 std::string Shader::loadShader(const std::string& fileName)
 {
@@ -82,8 +79,7 @@ std::string Shader::loadShader(const std::string& fileName)
     return ss.str();
 }
 
-void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram,
-                              const std::string& errorMessage)
+void Shader::checkShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
 {
     GLint success = 0;
     GLchar error[1024] = {0};
@@ -134,8 +130,7 @@ GLuint Shader::createShader(const std::string& text, GLenum shaderType)
     glShaderSource(shader, 1, shaderSourceStrings, shaderSourceStringLengths);
     glCompileShader(shader);
 
-    checkShaderError(shader, GL_COMPILE_STATUS, false,
-                     "Error: Shader compilation failed: ");
+    checkShaderError(shader, GL_COMPILE_STATUS, false, "Error: Shader compilation failed: ");
 
     return shader;
 }

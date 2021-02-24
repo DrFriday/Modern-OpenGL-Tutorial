@@ -10,7 +10,7 @@ class Texture
     explicit Texture(const std::string& fileName);
     ~Texture();
 
-	void bind(unsigned int unit);
+	void bind(unsigned int unit) const;
   private:
 
 	// Handle to the texture

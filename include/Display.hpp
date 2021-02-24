@@ -12,7 +12,7 @@ class Display
 
 	bool isClosed() const;
 
-	void clear(float r, float g, float b, float a) const;
+	static void clear(float r, float g, float b, float a) ;
 
     float getAspectRatio() const;
 

@@ -1,9 +1,10 @@
 #version 120
 
-// Attributes come from us
+// Attributes come from Shader.cpp, Assigned in Mesh.cpp
 attribute vec3 position;
 attribute vec2 texCoord;
 
+// Passed to fragment shader
 varying vec2 texCoord0;
 
 // Uniform variables are set by the CPU

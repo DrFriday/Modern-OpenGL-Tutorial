@@ -11,7 +11,7 @@ Texture::Texture(const std::string& fileName)
 
     auto imageData = stbi_load(fileName.c_str(), &width, &height, &numComponents, 4);
 
-	assert(imageData != NULL);
+	assert(imageData != nullptr);
 
 	// Making space for the texture
 	glGenTextures(1, &m_texture);
@@ -46,7 +46,7 @@ Texture::Texture(const std::string& fileName)
 Texture::~Texture() { glDeleteTextures(1, &m_texture); }
 
 // Setup OpenGL to use whatever texture we're binding.
-void Texture::bind(unsigned int unit)
+void Texture::bind(unsigned int unit) const
 {
     assert(unit <= 31);
 

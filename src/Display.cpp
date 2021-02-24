@@ -14,9 +14,11 @@ Display::Display(int width, int height, const char* title) :
     SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);  // 2^8 power of blue values
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32); // Space for each pixel
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16); // For z-buffer
     SDL_GL_SetAttribute(
         SDL_GL_DOUBLEBUFFER,
         1); // Allocate space for two windows, will only create one
+
 
     m_window =
         SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -31,6 +33,10 @@ Display::Display(int width, int height, const char* title) :
     }
 
     m_isClosed = false;
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glEnable(GL_DEPTH_TEST); // Enable depth buffer
 }
 
 Display::~Display()
@@ -57,10 +63,11 @@ void Display::update()
 
 bool Display::isClosed() const { return m_isClosed; }
 
-void Display::clear(float r, float g, float b, float a) const
+void Display::clear(float r, float g, float b, float a)
 {
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 float Display::getAspectRatio() const
