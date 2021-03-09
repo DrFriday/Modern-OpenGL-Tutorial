@@ -16,10 +16,19 @@ class Camera
            float zFar) :
         m_position(position),
         m_perspective(glm::perspective(fov, aspect, zNear, zFar)),
-        m_forward(glm::vec3(0, 0, 1)), m_up(glm::vec3(-1, 1, 0))
+        m_forward(glm::vec3(0, 0, 1)), m_up(glm::vec3(0, 1, 0))
     {
     }
 
+    Camera(const glm::vec3& position, float fov, float aspect, float zNear,
+           float zFar, const glm::vec3& forward, const glm::vec3& up) :
+        m_position(position),
+        m_perspective(glm::perspective(fov, aspect, zNear, zFar)),
+        m_forward(forward), m_up(up)
+    {
+    }
+
+    [[nodiscard]]
     glm::mat4 getViewProjection() const {
         return m_perspective * glm::lookAt(m_position, m_position + m_forward, m_up);
     }
