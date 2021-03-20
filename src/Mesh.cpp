@@ -13,6 +13,7 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>&
     {
         model.positions.push_back(vertex.pos());
         model.texCoords.push_back(vertex.texCoord());
+        model.normals.push_back(vertex.normal());
     }
 
     model.indices = indices;
@@ -62,10 +63,20 @@ void Mesh::initMesh(const IndexedModel& model)
     glEnableVertexAttribArray(TEXTURE_COORD_VB);
     glVertexAttribPointer(TEXTURE_COORD_VB, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
+
     // Going to be an array, but it's going to be referencing data in another array.
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vertexArrayBuffers[INDEX_VB]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), model.indices.data(),
                  GL_STATIC_DRAW);
+
+    // Buffer for normals
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[NORMAL_VB]);
+    glBufferData(GL_ARRAY_BUFFER, model.normals.size() * sizeof(model.normals[0]), model.normals.data(),
+                 GL_STATIC_DRAW);
+
+    // Binding to attrib location 3, look at Shader.cpp
+    glEnableVertexAttribArray(NORMAL_VB);
+    glVertexAttribPointer(NORMAL_VB, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     glBindVertexArray(0);
 }

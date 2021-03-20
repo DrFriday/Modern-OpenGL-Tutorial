@@ -22,8 +22,8 @@ int main(int argc, char** argv)
 
     std::vector<unsigned int> indices = {0, 1, 2, 1, 2, 3};
 
-    auto mesh = Mesh(vertices, indices);
-//    auto mesh = Mesh("../res/monkey3.obj");
+//    auto mesh = Mesh(vertices, indices);
+    auto mesh = Mesh("../res/monkey3.obj");
 
     Texture texture("../res/bricks.jpg");
 
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 //
 //        transform.getRotation().x = sinf(counter);
 //        transform.getRotation().x = sinf(45);
-//        transform.getRotation().y = 0;
+        transform.getRotation().y = counter;
 //        transform.getRotation().z = 0;
 
 //        transform.getRotation().y = counter;

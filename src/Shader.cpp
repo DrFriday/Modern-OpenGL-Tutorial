@@ -23,6 +23,7 @@ Shader::Shader(const std::string& fileName) : m_shaders(), m_uniforms()
     // Sends to .vs/.vert
     glBindAttribLocation(m_program, 0, "position");
     glBindAttribLocation(m_program, 1, "texCoord");
+    glBindAttribLocation(m_program, 3, "normal");
 
     // Can fail
     glLinkProgram(m_program);

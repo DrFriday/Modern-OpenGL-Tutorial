@@ -25,6 +25,11 @@ Link both SDL2main and SDL2 to get things working.
 
 Put shaders after the display is initialized, or else you'll get an error.
 
+Using Lambertian lighting
+- pretty fast, not the slowest out there
+- simple to do
+- usually the basis for more lighting techniques
+
 ## TODO
 
 Videos:

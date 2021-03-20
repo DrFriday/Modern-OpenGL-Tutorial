@@ -3,6 +3,7 @@
 // Attributes come from Shader.cpp, Assigned in Mesh.cpp
 attribute vec3 position;
 attribute vec2 texCoord;
+attribute vec3 normal;
 
 // Passed to fragment shader
 varying vec2 texCoord0;
