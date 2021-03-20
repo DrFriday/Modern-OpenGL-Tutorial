@@ -30,6 +30,8 @@ Using Lambertian lighting
 - simple to do
 - usually the basis for more lighting techniques
 
+Lighting is usually taking something that is already there, and multiplying it by something.
+
 ## TODO
 
 Videos:
@@ -39,4 +41,4 @@ Videos:
 - [x] 4
 - [x] 5
 - [x] 6
-- [ ] 7
+- [x] 7
